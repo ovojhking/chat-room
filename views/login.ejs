@@ -7,20 +7,22 @@
     </head>
 
     <body>
-        <form name="loginform" action="login" method="post" accept-charset="utf-8" >
+        <form >
             <h1>Login</h1>
             <div>
                 <label>email：</label>
-                <input type="text" name="email" placeholder="email">
+                <input type="text" name="email" placeholder="email" id="email" >
             </div>
             <div>
                 <label>password：</label>
-                <input type="password" name="password" placeholder="password">
+                <input type="password" name="password" placeholder="password" id="password">
             </div>
             <div>
-                <input type='submit' value='Submit'>
+                <input type='button' value="Submit" id='submit'>
                 <input type='reset' value='Reset'>
             </div>
         </form>
     </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='./javascripts/login.js'></script>
 </html>
