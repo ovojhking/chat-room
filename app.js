@@ -25,10 +25,10 @@ con.connect(function(err) {
     console.log('connecting success');
 
     // var sql = `CREATE TABLE account (
-    //   id int(11) NOT NULL,
-    //   userid varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-    //   password varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-    //   email varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL
+    //   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    //   email varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+    //   password varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+    //   created_at datetime DEFAULT CURRENT_TIMESTAMP
     // )`;
     // con.query(sql, function (err, result) {
     //   if (err) throw err;

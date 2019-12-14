@@ -20,9 +20,8 @@ router.get('/register', function(req, res, next) {
 router.post('/api/register/user', function(req, res, next) {
   var db = req.con;
   var sql = {
-      userid: req.body.userid,
-      password: bcrypt.hashSync(req.body.password,10),
-      email: req.body.email
+    email: req.body.email,
+    password: bcrypt.hashSync(req.body.password,10)
   };
   db.query('INSERT INTO account SET ?', sql, function(err, rows) {
       if (err) {
