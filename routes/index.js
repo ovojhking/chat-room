@@ -13,6 +13,32 @@ router.get('/', function(req, res, next) {
 		res.render('index', { title: 'Account Information', data: data});
 	});
 });
+router.get('/api/account-manager/accounts', function(req, res, next) {
+
+	let bearerToken = null;
+	const bearerHeader = req.headers.authorization;
+	if (typeof bearerHeader !== 'undefined') {
+		const bearer = bearerHeader.split(' '); // 字串切割
+		bearerToken = bearer[1]; // 取得 JWT
+	}
+
+	jwt.verify(bearerToken, 'my_secret_key',(err, decoded)=>{
+		if(err){
+			console.log('jwt err!!!', err);
+			res.json({ success: false});
+		}else{
+			console.log('decoded:   ', decoded.payload);
+			var db = req.con;
+			db.query('SELECT * FROM account', function(err, rows) {
+				if (err) {
+					console.log(err);
+				}else{
+					res.json({ success: true, accounts: rows});
+				}
+			});
+		}
+	});
+});
 
 // register
 router.get('/register', function(req, res, next) {
