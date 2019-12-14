@@ -1,7 +1,27 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const jwtKey = 'my_secret_key';
+
+const jwtAuth = (req, res, next)=>{
+	let bearerToken = null;
+	const bearerHeader = req.headers.authorization;
+	if (typeof bearerHeader !== 'undefined') {
+		const bearer = bearerHeader.split(' '); // 字串切割
+		bearerToken = bearer[1]; // 取得 JWT
+	}
+
+	jwt.verify(bearerToken, jwtKey,(err, decoded)=>{
+		if(err){
+			console.log('jwt err!!!', err);
+			res.json({ success: false});
+		}else{
+			console.log('decoded:   ', decoded.payload);
+			next();
+		}
+	});
+};
 
 router.get('/', function(req, res, next) {
 	var db = req.con;
@@ -13,29 +33,14 @@ router.get('/', function(req, res, next) {
 		res.render('index', { title: 'Account Information', data: data});
 	});
 });
-router.get('/api/account-manager/accounts', function(req, res, next) {
 
-	let bearerToken = null;
-	const bearerHeader = req.headers.authorization;
-	if (typeof bearerHeader !== 'undefined') {
-		const bearer = bearerHeader.split(' '); // 字串切割
-		bearerToken = bearer[1]; // 取得 JWT
-	}
-
-	jwt.verify(bearerToken, 'my_secret_key',(err, decoded)=>{
-		if(err){
-			console.log('jwt err!!!', err);
-			res.json({ success: false});
+router.get('/api/account-manager/accounts', jwtAuth,function(req, res, next) {
+	var db = req.con;
+	db.query('SELECT * FROM account', function(err, rows) {
+		if (err) {
+			console.log('!!err:  ', err);
 		}else{
-			console.log('decoded:   ', decoded.payload);
-			var db = req.con;
-			db.query('SELECT * FROM account', function(err, rows) {
-				if (err) {
-					console.log(err);
-				}else{
-					res.json({ success: true, accounts: rows});
-				}
-			});
+			res.json({ success: true, accounts: rows});
 		}
 	});
 });
@@ -80,9 +85,7 @@ router.post('/login', function(req, res, next) {
 					const payload = {
 						user_id: data.id,
 					};
-					const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, 'my_secret_key');
-					console.log('token:   ', token);
-					// routerRes.redirect('/');
+					const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtKey);
 					routerRes.json({
 						success: true,
 						token
