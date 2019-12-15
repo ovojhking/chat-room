@@ -8,7 +8,7 @@ function Submit(){
         password
     };
 
-    axios.post('../login',data).then(res=>{
+    axios.post('../api/login',data).then(res=>{
         // console.log('recieve res:  ', res);
         if(res.data.success){
             const token = res.data.token;
