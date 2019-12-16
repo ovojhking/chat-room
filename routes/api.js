@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-const jwtAuth = require('../middlewares/jwtAuth');
-const aclAuth = require('../middlewares/aclAuth');
+const jwtAuth = require('../auths/jwtAuth');
+const aclAuth = require('../auths/aclAuth');
 const userController = require('../controllers/user.controller');
 
 router.post('/login', userController.login);

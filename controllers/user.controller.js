@@ -1,7 +1,7 @@
 var bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
-const jwtAuth = require('../middlewares/jwtAuth');
+const jwtAuth = require('../auths/jwtAuth');
 let models  = require('../models');
 
 const login = (req, res, next) => {
