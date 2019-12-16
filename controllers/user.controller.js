@@ -40,6 +40,7 @@ const create = (req, res, next) => {
 };
 
 const readAll = async (req, res, next) => {
+	console.log('!!!!!!hihihihihihihih');
 	const users = await models.users.findAll().map(
 			element=>({id: element.dataValues.id, name: element.dataValues.name})
 		);

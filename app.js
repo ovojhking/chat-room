@@ -9,23 +9,6 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 
-// DataBase 
-// var mysql = require("mysql");
-// var con = mysql.createConnection({
-//     host: "localhost",
-//     user: "root",
-//     password: "",
-//     database: "test_express"
-// });
-
-// con.connect(function(err) {
-//     if (err) {
-//         console.log('connecting error');
-//         return;
-//     }
-//     console.log('connecting success');
-// });
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -35,12 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// db state
-// app.use(function(req, res, next) {
-//   req.con = con;
-//   next();
-// });
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);

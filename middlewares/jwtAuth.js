@@ -15,6 +15,7 @@ const auth = (req, res, next) => {
 			res.json({ success: false});
 		}else{
 			console.log('decoded:   ', decoded.payload);
+			req.uuid = decoded.payload.uuid;
 			next();
 		}
 	});
