@@ -4,9 +4,9 @@ function fetchData() {
         const config = {
             headers: {'Authorization': 'Bearer '+token}
         };
-        axios.get('../api/account-manager/accounts', config).then(res=>{
+        axios.get('../api/users', config).then(res=>{
             if(res.data.success){
-                appendData(res.data.accounts);
+                appendData(res.data.users);
             }else{
                 alert('請重新登入');
                 window.location.replace("../login");
@@ -32,10 +32,7 @@ function appendData(obj) {
                     ${element.id}
                 </td>
                 <td>
-                    ${element.email}
-                </td>
-                <td>
-                    ${element.password}
+                    ${element.name}
                 </td>
             </tr>
             `;

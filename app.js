@@ -10,32 +10,21 @@ var apiRouter = require('./routes/api');
 var app = express();
 
 // DataBase 
-var mysql = require("mysql");
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "test_express"
-});
+// var mysql = require("mysql");
+// var con = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "",
+//     database: "test_express"
+// });
 
-con.connect(function(err) {
-    if (err) {
-        console.log('connecting error');
-        return;
-    }
-    console.log('connecting success');
-
-    // var sql = `CREATE TABLE account (
-    //   id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    //   email varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-    //   password varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-    //   created_at datetime DEFAULT CURRENT_TIMESTAMP
-    // )`;
-    // con.query(sql, function (err, result) {
-    //   if (err) throw err;
-    //   console.log("Table created");
-    // });
-});
+// con.connect(function(err) {
+//     if (err) {
+//         console.log('connecting error');
+//         return;
+//     }
+//     console.log('connecting success');
+// });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,10 +37,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // db state
-app.use(function(req, res, next) {
-  req.con = con;
-  next();
-});
+// app.use(function(req, res, next) {
+//   req.con = con;
+//   next();
+// });
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);

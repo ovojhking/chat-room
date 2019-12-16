@@ -1,63 +1,49 @@
 var express = require('express');
 var router = express.Router();
 var bcrypt = require('bcrypt');
+const uuid = require('uuid');
 const jwt = require('jsonwebtoken');
 const jwtAuth = require('../middlewares/jwtAuth');
+let models  = require('../models');
 
 router.post('/login', function(req, res, next) {
-	var db = req.con;
-	let {email, password} = req.body;
-	const routerRes = res;
-	db.query("select * from account where email = ?", email, function(err, rows) {
-		if (err) {
-			console.log('err:  ',err);
-		}
-		var data = rows[0];
+	let {name, password} = req.body;
+	models.users.findOne({where: {name}}).then(user => {
+		var data = user.dataValues;
 		if(data){
-			bcrypt.compare(password, data.password).then(function (res) {
-				console.log('res:   ', res); // true
-				if(res){
-					// 產生 JWT
+			bcrypt.compare(password, data.password).then(success => {
+				if(success){
 					const payload = {
-						user_id: data.id,
+						uuid: data.uuid,
 					};
 					const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
-					routerRes.json({
+					res.json({
 						success: true,
 						token
 					})
 				}else{
-					routerRes.json({ success: false });
+					res.json({ success: false });
 				}
 			});
 		}else{
-			routerRes.json({ success: false });
+			res.json({ success: false });
 		}
 	});
 });
 
-router.get('/account-manager/accounts', jwtAuth.auth, function(req, res, next) {
-	var db = req.con;
-	db.query('SELECT * FROM account', function(err, rows) {
-		if (err) {
-			console.log('!!err:  ', err);
-		}else{
-			res.json({ success: true, accounts: rows});
-		}
-	});
+router.get('/users', jwtAuth.auth, async (req, res, next) => {
+	const users = await models.users.findAll().map(
+			element=>({id: element.dataValues.id, name: element.dataValues.name})
+		);
+	res.json({ success: true, users});
 });
 
-router.post('/account-manager/account', function(req, res, next) {
-	var db = req.con;
-	var sql = {
-		email: req.body.email,
+router.post('/user', function(req, res, next) {
+	models.users.create({
+		uuid: uuid.v4(),
+		name: req.body.name,
 		password: bcrypt.hashSync(req.body.password,10)
-	};
-	db.query('INSERT INTO account SET ?', sql, function(err, rows) {
-		if (err) {
-			console.log(err);
-		}
-		res.setHeader('Content-Type', 'application/json');
+	}).then(()=>{
 		res.redirect('../login');
 	});
 });
