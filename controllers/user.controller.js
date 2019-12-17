@@ -6,31 +6,6 @@ const aclAuth = require('../auths/aclAuth');
 
 let models  = require('../models');
 
-// const login = (req, res, next) => {
-// 	let {name, password} = req.body;
-// 	models.users.findOne({where: {name}}).then(user => {
-// 		var data = user.dataValues;
-// 		if(data){
-// 			bcrypt.compare(password, data.password).then(success => {
-// 				if(success){
-// 					const payload = {
-// 						uuid: data.uuid,
-// 					};
-// 					const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
-// 					res.json({
-// 						success: true,
-// 						token
-// 					})
-// 				}else{
-// 					res.json({ success: false });
-// 				}
-// 			});
-// 		}else{
-// 			res.json({ success: false });
-// 		}
-// 	});
-// };
-
 const login = (req, res, next) => {
 	let {name, password} = req.body;
 	models.users.findOne({where: {name}}).then(user => {
@@ -59,14 +34,25 @@ const login = (req, res, next) => {
 };
 
 const setRoles = async id => {
-	models.users.hasMany(models.user_roles, {foreignKey: 'user_id', sourceKey: 'id'});
-	models.user_roles.belongsTo(models.users, {foreignKey: 'user_id', targetKey: 'id'});
+	models.users.belongsToMany(models.roles, {
+		through: models.user_roles,
+		foreignKey: 'user_id'
+	})
+	models.roles.belongsToMany(models.users, {
+		through: models.user_roles,
+		foreignKey: 'role_id'
+	})
 
 	const userRoles = await models.users.findAll({
 		where: {id},
-		include: [ { association: 'user_roles'} ]
+		include: [{ 
+			all: true
+		}]
 	});
-	console.log('----------userRoles: ', userRoles);
+
+	console.log('----------userRoles0: ', userRoles.length);
+	console.log('----------userRoles1: ', userRoles[0]);
+	console.log('----------userRoles2: ', userRoles[0].roles);
 };
 
 const create = (req, res, next) => {
@@ -80,7 +66,6 @@ const create = (req, res, next) => {
 };
 
 const readAll = async (req, res, next) => {
-	console.log('!!!!!!hihihihihihihih');
 	const users = await models.users.findAll().map(
 			element=>({id: element.dataValues.id, name: element.dataValues.name})
 		);
