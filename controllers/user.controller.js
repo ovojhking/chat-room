@@ -6,34 +6,9 @@ const aclAuth = require('../auths/aclAuth');
 
 let models  = require('../models');
 
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
 	let {name, password} = req.body;
-	models.users.findOne({where: {name}}).then(user => {
-		var data = user.dataValues;
-		if(data){
-			bcrypt.compare(password, data.password).then(success => {
-				if(success){
-					setRoles(data.id);
 
-					const payload = {
-						uuid: data.uuid,
-					};
-					const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
-					res.json({
-						success: true,
-						token
-					})
-				}else{
-					res.json({ success: false });
-				}
-			});
-		}else{
-			res.json({ success: false });
-		}
-	});
-};
-
-const setRoles = async id => {
 	models.users.belongsToMany(models.roles, {
 		through: models.user_roles,
 		foreignKey: 'user_id'
@@ -43,16 +18,40 @@ const setRoles = async id => {
 		foreignKey: 'role_id'
 	})
 
-	const userRoles = await models.users.findAll({
-		where: {id},
+	let userRoles = await models.users.findAll({
+		where: {name},
 		include: [{ 
 			all: true
 		}]
 	});
+	userRoles = userRoles[0].dataValues;
 
-	console.log('----------userRoles0: ', userRoles.length);
-	console.log('----------userRoles1: ', userRoles[0]);
-	console.log('----------userRoles2: ', userRoles[0].roles);
+	if(userRoles){
+		bcrypt.compare(password, userRoles.password).then(success => {
+			if(success){
+				setRole(userRoles.uuid, userRoles.roles);
+				const payload = {
+					uuid: userRoles.uuid,
+				};
+				const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
+				res.json({
+					success: true,
+					token
+				})
+			}else{
+				res.json({ success: false });
+			}
+		});
+	}else{
+		res.json({ success: false });
+	}
+};
+const setRole = (id, roles) => {
+	const roleName = 'admin'
+	const isAdmin =	roles.some(role => role.dataValues.name === roleName);
+	if(isAdmin){
+		aclAuth.addRoles(id, roleName);
+	}
 };
 
 const create = (req, res, next) => {

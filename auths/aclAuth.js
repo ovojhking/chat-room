@@ -18,10 +18,15 @@ aclAuth.allow([
 // acl.allow('admin', 'user-management', '*');
 // acl.addUserRoles('jimmy', 'admin');
 
-const addRoles = (req, res, next) => {
-    return aclAuth.addUserRoles(req.uuid, 'member',err=>{
-        console.log('------here:err', err);
-        next();
+// const addRoles = (req, res, next) => {
+//     return aclAuth.addUserRoles(req.uuid, 'member',err=>{
+//         console.log('------here:err', err);
+//         next();
+//     });
+// }
+const addRoles = (uuid, role) => {
+    return aclAuth.addUserRoles(uuid, role, err=>{
+        console.error('err', err);
     });
 }
 
