@@ -87,9 +87,14 @@ const read = async (req, res, next) => {
 };
 
 const update = async (req, res, next) => {
+	let {name, password} = req.body;
+	let data = {name};
+	if(password){
+		data = {name, password: bcrypt.hashSync(password,10)};
+	}
 	const id = req.params.id;
 	await models.users.update(
-		{name: req.body.name},
+		data,
 		{where: {id}}
 	)
 	let user = await models.users.findOne({
