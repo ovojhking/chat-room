@@ -33,10 +33,15 @@ const login = async (req, res, next) => {
 				const payload = {
 					uuid: userRoles.uuid,
 				};
-				const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
+				// 15分鐘後過期
+				// const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
+				// 30秒後過期
+				const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 0.5) }, jwtAuth.key);
+
 				res.json({
 					success: true,
-					token
+					token,
+					userName: userRoles.name,
 				})
 			}else{
 				res.json({ success: false });

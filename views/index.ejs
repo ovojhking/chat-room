@@ -3,16 +3,20 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/zh-tw.js'></script>
   </head>
   <body>
-    <h1>Account - List</h1>
-    <table border="1" >
-        <tr>
-            <th>id</th>
-            <th>name</th>
-        </tr>
-    </table>
+    <div class="chats">
+      <span>聊天室：</span>
+    </div>
+    <div>
+      <!-- <input id="name" type="text" placeholder="your name" /> -->
+      <input id="message" type="text" placeholder="input the message" />
+      <button id="submit" type="button">送出</button>
+      <button id="disconnect" type="button">斷開魂結</button>
+    </div>
   </body>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src='./javascripts/index.js'></script>
 </html>

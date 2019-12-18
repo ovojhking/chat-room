@@ -2,7 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function(req, res, next) {
-	res.render('index', { title: 'Account Information'});
+	res.render('index', { title: 'Chat room'});
+});
+
+router.get('/account-management', function(req, res, next) {
+	res.render('accountManagement', { title: 'Account Information'});
 });
 
 router.get('/register', function(req, res, next) {
