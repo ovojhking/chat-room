@@ -4,24 +4,29 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Jimmy's chat room</title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     </head>
 
     <body>
-        <form name="addform" action="api/user" method="post" accept-charset="utf-8" >
-            <h1>Register</h1>
-            <div>
-                <label>name：</label>
-                <input type="text" name="name" placeholder="name：">
+        <h1>Register</h1>
+        <div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" id="name" />
             </div>
-            <div>
-                <label>password：</label>
-                <input type="password" name="password" placeholder="password">
+            <div class="form-group" id="passwordForm">
+                <label>password</label>
+                <input type="password" class="form-control" id="password">
+                <small class="form-text text-muted">Set the password</small>
+                <label class="mt-3">Verify</label>
+                <input type="password" class="form-control" id="verify">
+                <small class="form-text text-muted">Retype the password to verify</small>
             </div>
-            <div>
-                <input type='submit' value='Submit'>
-                <input type='reset' value='Reset'>
-                <input type='button' value='Back' onclick="javascript: location.href='/'">
-            </div>
-        </form>
+            <button class="btn btn-primary" onclick="submit()">Submit</button>
+            <button class="btn btn-danger" onclick="cancel()">Cancel</button>
+        </div>
     </body>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src='/javascripts/register.js'></script>
 </html>

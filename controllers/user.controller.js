@@ -60,7 +60,7 @@ const setRole = (id, roles) => {
 };
 
 const create = async (req, res, next) => {
-	const user = await models.users.create({
+	let user = await models.users.create({
 		uuid: uuid.v4(),
 		name: req.body.name,
 		password: bcrypt.hashSync(req.body.password,10)
