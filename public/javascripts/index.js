@@ -20,10 +20,9 @@ socket.on('expired', (msg) => {
     location.replace('../login');
 });
 
-document.querySelector('#submit').addEventListener('click', () => Send());
-document.querySelector('#disconnect').addEventListener('click', () => disconnect());
+document.querySelector('#submit').addEventListener('click', () => send());
 
-function Send() {
+function send() {
     let message = document.querySelector('#message').value;
     if (!message) {
         return;
@@ -41,17 +40,6 @@ function Send() {
         window.location.replace("../login");
     }
 }
-
-// socket.on('message', (obj) => {
-//     console.log('hi');
-//     appendData([obj]);
-// });
-
-// socket.on('history', (obj) => {
-//     if (obj.length > 0) {
-//         appendData(obj);
-//     }
-// });
 
 function appendData(obj) {
     let el = document.querySelector('.chats');
