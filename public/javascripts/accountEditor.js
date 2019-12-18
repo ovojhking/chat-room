@@ -63,7 +63,6 @@ function submit() {
 
     axios.put('/api/user/'+id, data, config).then(res=>{
         if(res.data.success){
-            console.log('hihihihihihi');
             location.href = "/account-management";
         }else{
             alert('請重新登入');

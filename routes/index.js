@@ -8,7 +8,9 @@ router.get('/', function(req, res, next) {
 router.get('/account-management', function(req, res, next) {
 	res.render(__dirname + '/../views/account/accountManagement');
 });
-
+router.get('/account-management/create', function(req, res, next) {
+	res.render(__dirname + '/../views/account/accountCreator');
+});
 router.get('/account-management/:id/edit', function(req, res, next) {
 	res.render(__dirname + '/../views/account/accountEditor');
 });

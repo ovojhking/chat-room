@@ -59,14 +59,14 @@ const setRole = (id, roles) => {
 	}
 };
 
-const create = (req, res, next) => {
-	models.users.create({
+const create = async (req, res, next) => {
+	const user = await models.users.create({
 		uuid: uuid.v4(),
 		name: req.body.name,
 		password: bcrypt.hashSync(req.body.password,10)
-	}).then(()=>{
-		res.redirect('../login');
 	});
+	user = {id: user.dataValues.id, name: user.dataValues.name};
+	res.json({ success: true, user});
 };
 
 const readAll = async (req, res, next) => {
