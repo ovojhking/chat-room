@@ -23,8 +23,10 @@
                 <input type="password" class="form-control" id="verify">
                 <small class="form-text text-muted">Retype the password to verify</small>
             </div>
-            <button class="btn btn-primary" onclick="submit()">Submit</button>
-            <button class="btn btn-danger" onclick="cancel()">Cancel</button>
+            <div class="d-flex justify-content-start align-items-center">
+                <button class="mr-3 btn btn-primary" onclick="submit()">Submit</button>
+                <a href="/login">I already have an account</a>
+            </div>
         </div>
     </body>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

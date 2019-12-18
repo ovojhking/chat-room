@@ -24,8 +24,3 @@ function submit() {
         window.location.replace("../login");
     });
 }
-
-function cancel() {
-    location.reload();
-}
-
