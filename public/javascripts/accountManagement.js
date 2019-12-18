@@ -21,7 +21,7 @@ function fetchData() {
 }
 
 function appendData(obj) {
-    let el = document.querySelector('table');
+    let el = document.querySelector('tbody');
     let html = el.innerHTML;
 
     obj.forEach(element => {
@@ -34,10 +34,28 @@ function appendData(obj) {
                 <td>
                     ${element.name}
                 </td>
+                <td>
+                    <div class="d-flex justify-content-start">
+                        <div onclick="editAccount(${element.id})">edit</div>
+                        <div class="ml-3" onclick="deleteAccount(${element.id})">delete</div>
+                    </div>
+                </td>
             </tr>
             `;
     });
     el.innerHTML = html.trim();
+}
+
+function newAccount(id){
+    console.log('new');
+}
+
+function editAccount(id){
+    console.log('edit id:  ', id);
+}
+
+function deleteAccount(id){
+    console.log('delete id:  ', id);
 }
 
 fetchData();
