@@ -76,6 +76,32 @@ const readAll = async (req, res, next) => {
 	res.json({ success: true, users});
 };
 
+const read = async (req, res, next) => {
+	const id = req.params.id;
+	let user = await models.users.findOne({
+		where: {id}
+	});
+
+	user = {id: user.dataValues.id, name: user.dataValues.name};
+	res.json({ success: true, user});
+};
+
+const update = async (req, res, next) => {
+	const id = req.params.id;
+	await models.users.update(
+		{name: req.body.name},
+		{where: {id}}
+	)
+	let user = await models.users.findOne({
+		where: {id}
+	});
+
+	user = {id: user.dataValues.id, name: user.dataValues.name};
+	res.json({ success: true, user});
+};
+
 module.exports.login = login;
 module.exports.create = create;
 module.exports.readAll = readAll;
+module.exports.read = read;
+module.exports.update = update;

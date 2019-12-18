@@ -21,10 +21,16 @@ function fetchData() {
 }
 
 function appendData(obj) {
+    const userName = localStorage.getItem('userName');
     let el = document.querySelector('tbody');
     let html = el.innerHTML;
 
     obj.forEach(element => {
+        let button = `<button class="ml-3 btn btn-danger" onclick="deleteAccount(${element.id})">delete</button>`
+        if(element.name===userName){
+            button = `<button class="ml-3 btn btn-danger disabled">delete</button>`
+        }
+
         html +=
             `
             <tr>
@@ -36,8 +42,8 @@ function appendData(obj) {
                 </td>
                 <td>
                     <div class="d-flex justify-content-start">
-                        <div onclick="editAccount(${element.id})">edit</div>
-                        <div class="ml-3" onclick="deleteAccount(${element.id})">delete</div>
+                        <a class="btn btn-warning text-white" href="account-management/${element.id}/edit">edit</a>
+                        ${button}
                     </div>
                 </td>
             </tr>
@@ -46,7 +52,7 @@ function appendData(obj) {
     el.innerHTML = html.trim();
 }
 
-function newAccount(id){
+function newAccount(){
     console.log('new');
 }
 

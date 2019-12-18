@@ -9,6 +9,10 @@ router.get('/account-management', function(req, res, next) {
 	res.render(__dirname + '/../views/account/accountManagement');
 });
 
+router.get('/account-management/:id/edit', function(req, res, next) {
+	res.render(__dirname + '/../views/account/accountEditor');
+});
+
 router.get('/register', function(req, res, next) {
 	res.render('register');
 });

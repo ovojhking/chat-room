@@ -5,15 +5,10 @@ aclAuth.allow([
     {
         roles: 'admin',
         allows: [
-            { resources: '/api/users', permissions: '*' }
+            { resources: '/api/users', permissions: '*' },
+            { resources: '/api/user', permissions: '*' }
         ]
     },
-    {
-        roles: 'member',
-        allows: [
-            { resources: '/api/users', permissions: 'get' }
-        ]
-    }
 ]);
 // acl.allow('admin', 'user-management', '*');
 // acl.addUserRoles('jimmy', 'admin');
@@ -30,9 +25,10 @@ const addRoles = (uuid, role) => {
     });
 }
 
-const middleware = (req, res, next) => {
-    aclAuth.middleware(2,req.uuid)(req, res, next);
+const middleware = (numPathComponents, req, res, next) => {
+    aclAuth.middleware(numPathComponents,req.uuid)(req, res, next);
 }
+
 
 module.exports.addRoles = addRoles;
 module.exports.middleware = middleware;
