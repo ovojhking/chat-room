@@ -4,10 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Jimmy's chat room</title>
+        <link rel='stylesheet' href='/stylesheets/style.css' />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     </head>
 
     <body>
-        <form >
+        <!-- <form >
             <h1>Login</h1>
             <div>
                 <label>name：</label>
@@ -21,7 +23,23 @@
                 <input type='button' value="Submit" id='submit'>
                 <input type='reset' value='Reset'>
             </div>
-        </form>
+        </form> -->
+        <h1>Login</h1>
+        <div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" id="name" />
+            </div>
+            <div class="form-group" id="passwordForm">
+                <label>password</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <div class="d-flex justify-content-start align-items-center">
+                <button class="mr-3 btn btn-primary" onclick="submit()">login</button>
+                <a href="/register">Don't have an account?</a>
+            </div>
+
+        </div>
     </body>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src='./javascripts/login.js'></script>

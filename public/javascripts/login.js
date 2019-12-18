@@ -1,6 +1,4 @@
-document.querySelector('#submit').addEventListener('click', () => Submit());
-
-function Submit(){
+function submit(){
     let name = document.querySelector('#name').value;
     let password = document.querySelector('#password').value;
     let data = {
@@ -13,7 +11,7 @@ function Submit(){
             const {token, userName} = res.data;
             localStorage.setItem('userName', userName);
             localStorage.setItem('token', token);
-            window.location.href = "../";
+            window.location.href = "/";
         }else{
             alert('帳號或密碼錯誤');
         }
