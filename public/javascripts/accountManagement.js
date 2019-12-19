@@ -13,6 +13,8 @@ function fetchData() {
             }
         }).catch(function (error) {
             console.log('error!!!', error);
+            alert('請重新登入');
+            window.location.replace("../login");
         });
     } else {
         alert('尚未登入');
@@ -50,14 +52,6 @@ function appendData(obj) {
             `;
     });
     el.innerHTML = html.trim();
-}
-
-function newAccount(){
-    console.log('new');
-}
-
-function editAccount(id){
-    console.log('edit id:  ', id);
 }
 
 function deleteAccount(id){
