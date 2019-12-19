@@ -15,8 +15,7 @@ function submit() {
         if(res.data.success){
             location.href = "/login";
         }else{
-            alert('發生錯誤請重新登入');
-            window.location.replace("../login");
+            alert('帳號已存在');
         }
     }).catch(function (error) {
         // console.log('error!!!', error);

@@ -62,6 +62,13 @@ const setRole = (id, roles) => {
 };
 
 const create = async (req, res, next) => {
+	const dbUser = await models.users.findOne({
+		where:{name: req.body.name}
+	});
+	if(dbUser){
+		res.json({ success: false});
+	}
+
 	let user = await models.users.create({
 		uuid: uuid.v4(),
 		name: req.body.name,
