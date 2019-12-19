@@ -1,9 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Jimmy's chat room</title>
-	<link rel='stylesheet' href='/stylesheets/style.css' />
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	<%- include('../partials/head'); %>
 </head>
 <body>
 	<h1>Account - Editor</h1>
@@ -27,6 +25,5 @@
 		<button class="btn btn-danger" onclick="cancel()">Cancel</button>
 	</div>
 </body>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src='/javascripts/accountEditor.js'></script>
 </html>
