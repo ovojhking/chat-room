@@ -105,8 +105,23 @@ const update = async (req, res, next) => {
 	res.json({ success: true, user});
 };
 
+const deleteUser = async (req, res, next) => {
+	const id = req.params.id;
+	let user = await models.users.findOne({
+		where: {id}
+	});
+	const deletedUser = {id: user.dataValues.id, name: user.dataValues.name};
+	if (!user){
+		res.json({ success: false});
+		return ;
+	}
+	user.destroy();
+	res.json({ success: true, user: deletedUser});
+};
+
 module.exports.login = login;
 module.exports.create = create;
 module.exports.readAll = readAll;
 module.exports.read = read;
 module.exports.update = update;
+module.exports.deleteUser = deleteUser;

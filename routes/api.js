@@ -10,5 +10,6 @@ router.get('/users', [jwtAuth.auth, aclAuth.middleware.bind(null,2)], userContro
 router.post('/user', userController.create);
 router.get('/user/:id', [jwtAuth.auth, aclAuth.middleware.bind(null,2)], userController.read);
 router.put('/user/:id', [jwtAuth.auth, aclAuth.middleware.bind(null,2)], userController.update);
+router.delete('/user/:id', [jwtAuth.auth, aclAuth.middleware.bind(null,2)], userController.deleteUser);
 
 module.exports = router;
