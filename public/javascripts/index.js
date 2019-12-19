@@ -48,14 +48,17 @@ function appendData(obj) {
     obj.forEach(element => {
         html +=
             `
-            <div class="chat">
-                <div>
-                    <div>${element.user_name}：</div>
-                    <div>${element.message}</div>
+            <div class="p-3">
+                <div class="px-3 d-flex justify-content-between align-items-end">
+                    <div class="chat-name">${element.user_name}:</div>
+                    <div class="chat-date text-secondary" >${moment(element.createdAt).format('LLL')}</div>
                 </div>
-                <div>${element.createdAt}</div>
+                <div class="border border-light rounded bg-white">
+                    <div class="m-3"> ${element.message} </div>
+                </div>
             </div>
             `;
     });
     el.innerHTML = html.trim();
+    el.scrollTo(0,el.scrollHeight);
 }

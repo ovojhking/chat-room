@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Jimmy's chat room</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/zh-tw.js'></script>
-  </head>
-  <body>
-    <div class="chats">
-      <span>聊天室：</span>
-    </div>
-    <div>
-      <input id="message" type="text" placeholder="input the message" />
-      <button id="submit" type="button">送出</button>
-    </div>
-  </body>
-  <script src='./javascripts/index.js'></script>
+<head>
+	<title>Jimmy's chat room</title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/locale/zh-tw.js'></script>
+</head>
+<body>
+	<div class="container">
+		<h1>Chat room:</h1>
+		<div class="chats border bg-light">
+			<span class="ml-3">start!</span>
+		</div>
+		<div class="input-group my-3">
+			<input id="message" type="text" class="form-control" placeholder="Type your text:" />
+			<div class="input-group-append">
+				<button id="submit" class="btn btn-outline-primary" type="button">Send</button>
+			</div>
+		</div>
+	</div>
+</body>
+<script src='./javascripts/index.js'></script>
 </html>
