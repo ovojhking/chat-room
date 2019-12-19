@@ -29,7 +29,7 @@ const login = async (req, res, next) => {
 	if(userRoles){
 		bcrypt.compare(password, userRoles.password).then(success => {
 			if(success){
-				setRole(userRoles.uuid, userRoles.roles);
+				const role = setRole(userRoles.uuid, userRoles.roles);
 				const payload = {
 					uuid: userRoles.uuid,
 				};
@@ -37,11 +37,11 @@ const login = async (req, res, next) => {
 				const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 15) }, jwtAuth.key);
 				// 30秒後過期
 				// const token = jwt.sign({ payload, exp: Math.floor(Date.now() / 1000) + (60 * 0.5) }, jwtAuth.key);
-
 				res.json({
 					success: true,
 					token,
 					userName: userRoles.name,
+					role: role,
 				})
 			}else{
 				res.json({ success: false });
@@ -56,7 +56,9 @@ const setRole = (id, roles) => {
 	const isAdmin =	roles.some(role => role.dataValues.name === roleName);
 	if(isAdmin){
 		aclAuth.addRoles(id, roleName);
+		return roleName;
 	}
+	return '';
 };
 
 const create = async (req, res, next) => {

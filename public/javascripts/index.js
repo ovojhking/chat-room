@@ -1,7 +1,7 @@
 const token = localStorage.getItem('token');
 
 socket = io.connect('ws://localhost:3001', {
-    query: {token}
+    query: {token: token}
 });
 socket.on('message', (obj) => {
     console.log(obj);
@@ -13,7 +13,8 @@ socket.on('history', (obj) => {
     }
 });
 socket.on('error', (error) => {
-    console.log(error);
+    alert(error);
+    location.replace('/login');
 });
 socket.on('expired', (msg) => {
     alert(msg);

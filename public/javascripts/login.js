@@ -8,7 +8,8 @@ function submit(){
 
     axios.post('../api/login',data).then(res=>{
         if(res.data.success){
-            const {token, userName} = res.data;
+            const {role, token, userName} = res.data;
+            localStorage.setItem('role', role);
             localStorage.setItem('userName', userName);
             localStorage.setItem('token', token);
             window.location.href = "/";
