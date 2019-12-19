@@ -15,4 +15,10 @@ function setUserName(userName){
     el.innerHTML = userName;
 }
 
+function logout(){
+    localStorage.setItem('userName','');
+    localStorage.setItem('token','');
+    window.location.replace("/login");
+}
+
 afterLogin();
