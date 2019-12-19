@@ -4,21 +4,25 @@
 		<%- include('../partials/head'); %>
 	</head>
 	<body>
-		<h1>Account - Management</h1>
-		<div class="my-3 d-flex justify-content-end">
-			<a class="btn btn-primary" href="/account-management/create">create</a>
+		<%- include('../partials/header'); %>
+		<div class="container pt-3">
+			<h1>Account - Management</h1>
+			<div class="my-3 d-flex justify-content-end">
+				<a class="btn btn-primary" href="/account-management/create">create</a>
+			</div>
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">name</th>
+						<th scope="col">options</th>
+					</tr>
+				</thead>
+				<tbody >
+				</tbody>
+			</table>
 		</div>
-		<table class="table table-striped">
-			<thead>
-				<tr>
-					<th scope="col">#</th>
-					<th scope="col">name</th>
-					<th scope="col">options</th>
-				</tr>
-			</thead>
-			<tbody >
-			</tbody>
-		</table>
 	</body>
+	<script src='/javascripts/header.js'></script>
 	<script src='/javascripts/accountManagement.js'></script>
 </html>

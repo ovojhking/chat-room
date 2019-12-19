@@ -4,8 +4,9 @@
         <%- include('partials/head'); %>
     </head>
     <body>
-        <h1>Login</h1>
-        <div>
+        <%- include('partials/header'); %>
+        <div class="container pt-3">
+            <h1>Login</h1>
             <div class="form-group">
                 <label>Name</label>
                 <input type="text" class="form-control" id="name" />
@@ -20,5 +21,6 @@
             </div>
         </div>
     </body>
+    <script src='./javascripts/header.js'></script>
     <script src='./javascripts/login.js'></script>
 </html>

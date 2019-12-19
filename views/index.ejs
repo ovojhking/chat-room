@@ -5,7 +5,8 @@
 	<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js'></script>
 </head>
 <body>
-	<div class="container">
+	<%- include('partials/header'); %>
+	<div class="container pt-3">
 		<h1>Chat room:</h1>
 		<div class="chats border bg-light">
 			<span class="ml-3">start!</span>
@@ -18,5 +19,6 @@
 		</div>
 	</div>
 </body>
+<script src='./javascripts/header.js'></script>
 <script src='./javascripts/index.js'></script>
 </html>
