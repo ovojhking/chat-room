@@ -1,7 +1,3 @@
-const jwt = require('jsonwebtoken');
-const jwtAuth = require('../auths/jwtAuth');
-const aclAuth = require('../auths/aclAuth');
-
 let models  = require('../models');
 
 const create = async (data) => {
