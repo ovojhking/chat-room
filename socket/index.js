@@ -11,28 +11,28 @@ const timer = require('long-timeout')
 const socketMiddleware = (socket, next) => {
   if (socket.handshake.query && socket.handshake.query.token){
     jwt.verify(socket.handshake.query.token, jwtAuth.key, function(err, decoded) {
+      if(err){
+        return next(new Error('Authentication error'));
+      }
       const expiresIn =  (decoded.exp - Date.now() / 1000) * 1000
       timer.setTimeout(() => {
         console.log('disconnect now');
-        io.emit("expired", 'token expired!!');
+        socket.emit("expired", 'token expired');
         socket.disconnect(true);
       }, expiresIn);
 
-      return next()
+      return next();
     });
   } else {
-    io.emit("error", 'Authentication error');
-    return next()
+    return next(new Error('Authentication error'));
   }    
 };
 
-io.use(socketMiddleware).on('connection', async(socket) => {
+io.use(socketMiddleware).on('connection', async(socket, err) => {
   console.log('a user connected');
   const socketid = socket.id;
   const messages = await messageController.readAll();
-
   io.to(socketid).emit('history', messages);
-
   socket.on("message", async (obj) => {
     const message = await messageController.create(obj);
     io.emit("message", message);
