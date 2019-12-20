@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "jest",
+    "pretest": "cross-env NODE_ENV=test node_modules/.bin/sequelize db:migrate:undo:all && npm run test-db-init",
+    "test-db-init": "cross-env NODE_ENV=test node_modules/.bin/sequelize db:migrate && NODE_ENV=test node_modules/.bin/sequelize db:seed:all",
     "test-detect": "jest --detectOpenHandles"
   },
   "dependencies": {
@@ -12,6 +14,7 @@
     "axios": "^0.19.0",
     "bcrypt": "^3.0.7",
     "cookie-parser": "~1.4.3",
+    "cross-env": "^6.0.3",
     "debug": "~2.6.9",
     "ejs": "~2.5.7",
     "express": "~4.16.0",
