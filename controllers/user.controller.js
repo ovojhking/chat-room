@@ -24,8 +24,14 @@ const login = async (req, res, next) => {
 			all: true
 		}]
 	});
-	userRoles = userRoles[0].dataValues;
 
+	if(userRoles.length === 0){
+		res.json({ success: false });
+		return;
+	}
+
+	userRoles = userRoles[0].dataValues;
+	
 	if(userRoles){
 		bcrypt.compare(password, userRoles.password).then(success => {
 			if(success){
