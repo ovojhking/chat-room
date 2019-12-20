@@ -116,7 +116,7 @@ const update = async (req, res, next) => {
 	let user = await models.users.findOne({
 		where: {id}
 	});
-	if(user===null){
+	if(!user){
 		res.json({success: false});
 		return ;
 	}
@@ -129,11 +129,11 @@ const deleteUser = async (req, res, next) => {
 	let user = await models.users.findOne({
 		where: {id}
 	});
-	const deletedUser = {id: user.dataValues.id, name: user.dataValues.name};
 	if (!user){
 		res.json({ success: false});
 		return ;
 	}
+	const deletedUser = {id: user.dataValues.id, name: user.dataValues.name};
 	user.destroy();
 	res.json({ success: true, user: deletedUser});
 };
