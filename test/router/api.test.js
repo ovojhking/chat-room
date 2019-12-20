@@ -1,8 +1,8 @@
 const sinon = require('sinon');
 const supertest = require('supertest');
-const db = require('../models/index');
-const jwtAuth = require('../auths/jwtAuth');
-const aclAuth = require('../auths/aclAuth');
+const db = require('../../models/index');
+const jwtAuth = require('../../auths/jwtAuth');
+const aclAuth = require('../../auths/aclAuth');
 let jwtStub = null;
 let aclStub = null;
 let app = null;
@@ -24,7 +24,7 @@ beforeEach(function() {
 	app = express();
 	app.use(express.json());
 	app.use(express.urlencoded({ extended: false }));
-	const apiRouter = require('../routes/api');
+	const apiRouter = require('../../routes/api');
 	app.use('/api', apiRouter);
 	api = supertest(app);
 });
