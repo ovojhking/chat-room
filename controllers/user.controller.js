@@ -116,7 +116,10 @@ const update = async (req, res, next) => {
 	let user = await models.users.findOne({
 		where: {id}
 	});
-
+	if(user===null){
+		res.json({success: false});
+		return ;
+	}
 	user = {id: user.dataValues.id, name: user.dataValues.name};
 	res.json({ success: true, user});
 };
