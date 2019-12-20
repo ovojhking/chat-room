@@ -7,6 +7,7 @@ let jwtStub = null;
 let aclStub = null;
 let app = null;
 let api = null;
+const fakeUser = {name: 'testUserAdd', password:'123'};
 
 beforeEach(function() {
 	jwtStub = sinon.stub(jwtAuth, 'auth')
@@ -85,6 +86,32 @@ describe('api/users', () => {
 					expect(user).toHaveProperty('id');
 				});
 				expect(err).toBe(null);
+                done();
+            });
+    }); 
+});
+
+describe('POST api/user', () => {
+    it('it should return a 200 response', async done => {
+		api.post('/api/user')
+			.send(fakeUser)
+            .expect(200)
+            .end((err, res) => {
+				expect(res.body.success).toBe(true);
+				const {user} = res.body;
+				expect(typeof user).toBe('object');
+				expect(user).toHaveProperty('name',fakeUser.name);
+				expect(user.id > 1).toBe(true);
+				expect(err).toBe(null);
+                done();
+            });
+	}); 
+	it('can not create a duplicate user', async done => {
+		api.post('/api/user')
+			.send(fakeUser)
+            .expect(200)
+            .end((err, res) => {
+				expect(res.body.success).toBe(false);
                 done();
             });
     }); 
