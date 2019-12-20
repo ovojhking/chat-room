@@ -134,7 +134,7 @@ const deleteUser = async (req, res, next) => {
 		return ;
 	}
 	const deletedUser = {id: user.dataValues.id, name: user.dataValues.name};
-	user.destroy();
+	await user.destroy();
 	res.json({ success: true, user: deletedUser});
 };
 
