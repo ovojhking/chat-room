@@ -31,7 +31,7 @@ const login = async (req, res, next) => {
 	}
 
 	userRoles = userRoles[0].dataValues;
-	
+
 	if(userRoles){
 		bcrypt.compare(password, userRoles.password).then(success => {
 			if(success){
@@ -73,6 +73,7 @@ const create = async (req, res, next) => {
 	});
 	if(dbUser){
 		res.json({ success: false});
+		return;
 	}
 
 	let user = await models.users.create({
