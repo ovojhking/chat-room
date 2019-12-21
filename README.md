@@ -42,10 +42,13 @@
 	* 當user改名後，舊的訊息無法同步更新名稱。 		
 
 #### 權限設計：
+
 權限的部分是參考RBAC（Role-Based Access Control)的方式設計，基於角色去訪問控制權限。
+
 這裡原先的設計有兩個 :
-		1. 只留一張資料表：users，並在裏頭寫上admin的欄位，藉此判斷user是否為管理員。但考慮到角色可能會擴充，因此不使用。
-		2. 基於原本的，再新增role_permissions、permissionse，一共五張table。但因此處的角色僅有一個(admin)，且如此設計在每次權限判斷時都需讀取資料庫，或將權限存於session。如此一來外來不好考慮load balance的問題。
+
+1. 只留一張資料表：users，並在裏頭寫上admin的欄位，藉此判斷user是否為管理員。但考慮到角色可能會擴充，因此不使用。
+2. 基於原本的，再新增role_permissions、permissionse，一共五張table。但因此處的角色僅有一個(admin)，且如此設計在每次權限判斷時都需讀取資料庫，或將權限存於session。如此一來外來不好考慮load balance的問題。
 因此最終資料庫僅存取role，權限的判斷透過acl.js與jwt輔助完成。
 
 ## 安裝與使用
