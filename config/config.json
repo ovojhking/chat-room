@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "test_express",
+    "database": "chat_room",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": 0
@@ -18,7 +18,7 @@
   "production": {
     "username": "root",
     "password": null,
-    "database": "test_express",
+    "database": "chat_room",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": 0
